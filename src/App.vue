@@ -14,9 +14,6 @@ export default {
 </script>
 
 <style lang="less">
-@import './assets/styles/reset.less';
-@import './assets/styles/config.less';
-
 body{
 	height: 100%;
 	width: 10rem;

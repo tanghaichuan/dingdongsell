@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
-    </keep-alive> 
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,14 +11,14 @@ export default {
 </script>
 
 <style lang="less">
-body{
-	height: 100%;
-	width: 10rem;
-	margin: 0 auto;
-	position: relative;
+body {
+  height: 100%;
+  width: 10rem;
+  margin: 0 auto;
+  position: relative;
   z-index: -1;
   overflow: hidden;
-  #app{
+  #app {
     height: 100%;
   }
 }

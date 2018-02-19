@@ -20,6 +20,12 @@ export default {
 <style lang="less">
 @import '../assets/styles/mixins.less';
 header {
+  .van-nav-bar .van-icon {
+    color: #5f5b5b;
+  }
+  .van-nav-bar__title {
+    color: #5f5b5b;
+  }
   .van-nav-bar {
     position: fixed;
     top: 0;

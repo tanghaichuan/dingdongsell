@@ -18,6 +18,7 @@ body {
   position: relative;
   z-index: -1;
   overflow: hidden;
+  background-color: #f5f5f5;
   #app {
     height: 100%;
   }

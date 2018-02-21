@@ -1,7 +1,7 @@
 <template>
   <header>
     <van-nav-bar
-      title="我的"
+      :title="title"
       left-arrow
       @click-left="onClickLeft"
     />
@@ -10,6 +10,9 @@
 <script>
 export default {
   name: 'headerBar',
+  props: {
+    title: String
+  },
   methods: {
     onClickLeft() {
       this.$router.go(-1)
@@ -31,7 +34,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background: transparent;
+    background: #e7ded6;
     height: 1.173333rem;
   }
   .van-nav-bar__title {

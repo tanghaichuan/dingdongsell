@@ -1,16 +1,18 @@
 <template>
   <div class="profile">
-    <headerBar></headerBar>
+    <headerBar title="我的"></headerBar>
     <div>
       <div class="profile-user">  
-          <div class="user-status">
-            <div class="private-image">
-              <svg viewBox="0 0 122 122" id="avatar-default">
-                <path fill="#DCDCDC" fill-rule="evenodd" d="M61 121.5c33.413 0 60.5-27.087 60.5-60.5S94.413.5 61 .5.5 27.587.5 61s27.087 60.5 60.5 60.5zm12.526-45.806c-.019 3.316-.108 6.052.237 9.825 3.286 8.749 18.816 9.407 28.468 17.891-1.833 1.998-6.768 6.788-15 10.848-7.02 3.463-16.838 6.416-24.831 6.416-17.366 0-32.764-7.149-42.919-17.264 9.713-8.407 25.49-9.173 28.769-17.891.345-3.773.258-6.509.24-9.825l-.004-.002c-1.903-.985-5.438-7.268-6.01-12.571-1.492-.12-3.843-1.561-4.534-7.247-.37-3.053 1.107-4.77 2.004-5.31-5.046-19.212 1.507-33.16 20.749-34.406 5.753 0 10.18 1.52 11.909 4.523 15.35 2.702 11.756 22.658 9.328 29.882.899.54 2.376 2.258 2.004 5.31-.689 5.687-3.042 7.127-4.534 7.248-.575 5.305-3.25 10.82-5.873 12.57l-.003.003zM61 120.5C28.14 120.5 1.5 93.86 1.5 61S28.14 1.5 61 1.5s59.5 26.64 59.5 59.5-26.64 59.5-59.5 59.5z"></path>
-              </svg>
+          <router-link :to="isLogin ? '/profile/info' : '/login'" class="profile-link">
+            <div class="user-status">
+              <div class="private-image">
+                <svg viewBox="0 0 122 122" id="avatar-default">
+                  <path fill="#DCDCDC" fill-rule="evenodd" d="M61 121.5c33.413 0 60.5-27.087 60.5-60.5S94.413.5 61 .5.5 27.587.5 61s27.087 60.5 60.5 60.5zm12.526-45.806c-.019 3.316-.108 6.052.237 9.825 3.286 8.749 18.816 9.407 28.468 17.891-1.833 1.998-6.768 6.788-15 10.848-7.02 3.463-16.838 6.416-24.831 6.416-17.366 0-32.764-7.149-42.919-17.264 9.713-8.407 25.49-9.173 28.769-17.891.345-3.773.258-6.509.24-9.825l-.004-.002c-1.903-.985-5.438-7.268-6.01-12.571-1.492-.12-3.843-1.561-4.534-7.247-.37-3.053 1.107-4.77 2.004-5.31-5.046-19.212 1.507-33.16 20.749-34.406 5.753 0 10.18 1.52 11.909 4.523 15.35 2.702 11.756 22.658 9.328 29.882.899.54 2.376 2.258 2.004 5.31-.689 5.687-3.042 7.127-4.534 7.248-.575 5.305-3.25 10.82-5.873 12.57l-.003.003zM61 120.5C28.14 120.5 1.5 93.86 1.5 61S28.14 1.5 61 1.5s59.5 26.64 59.5 59.5-26.64 59.5-59.5 59.5z"></path>
+                </svg>
+              </div>
+              <p>{{username}}</p>
             </div>
-            <p>请先登录</p>
-          </div>
+          </router-link>
       </div>
       <van-row class="user-links">
         <van-col span="12">
@@ -23,9 +25,11 @@
         </van-col>
       </van-row>
       <van-cell-group class="user-group">
-        <van-cell icon="records" title="我的地址" is-link>
-          <img src="../../assets/images/dizhi.png" slot="icon" alt="我的地址">
-        </van-cell>
+        <router-link to="/profile/address">
+          <van-cell icon="records" title="我的地址" is-link>
+            <img src="../../assets/images/dizhi.png" slot="icon" alt="我的地址">
+          </van-cell>
+        </router-link>
       </van-cell-group>
       <van-cell-group class="option-group">
         <van-cell title="客服中心" is-link>
@@ -41,16 +45,33 @@
         </van-cell>
       </van-cell-group>
     </div>
+    <footerBar></footerBar>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import headerBar from '@/components/header'
+import footerBar from '@/components/footer'
 
 export default {
   name: 'profile',
   components: {
-    headerBar
-  }
+    headerBar,
+    footerBar
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapState(['user', 'isLogin']),
+    username() {
+      if (this.isLogin && this.user) {
+        return this.user.username
+      }
+      return '请先登录'
+    }
+  },
+  created() {}
 }
 </script>
 <style lang="less">

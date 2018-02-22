@@ -3,6 +3,8 @@
     <van-nav-bar
       :title="title"
       left-arrow
+      :right-text='rightText'
+      @click-right="onClickRight"
       @click-left="onClickLeft"
     />
   </header>
@@ -11,7 +13,12 @@
 export default {
   name: 'headerBar',
   props: {
-    title: String
+    title: String,
+    rightText: String,
+    onClickRight: {
+      type: Function,
+      default: () => {}
+    }
   },
   methods: {
     onClickLeft() {

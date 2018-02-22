@@ -1,3 +1,41 @@
+@base-fs: 0.4rem;
+
+.van-cell {
+  display: flex;
+  font-size: @base-fs;
+  line-height: 0.48rem;
+  color: #333;
+  .van-field__control {
+    .fs32;
+  }
+  .van-cell__value {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    input {
+      min-height: 0.46666rem;
+      outline: none;
+      font-size: 0.4rem;
+      line-height: 0.48rem;
+    }
+    textarea {
+      outline: none;
+      font-size: 0.4rem;
+      line-height: 0.48rem;
+      color: #666;
+      border: none;
+      flex: 1;
+      padding-right: 0.4rem;
+      padding-left: 0;
+    }
+  }
+  .van-cell__title {
+    font-weight: 700;
+    padding: 0.373333rem 0;
+    line-height: 0.48rem;
+  }
+}
+
 /*dialog*/
 .van-dialog {
   overflow: hidden;
@@ -22,6 +60,9 @@
     background: #3190e8;
     color: #fff;
   }
+  .van-dialog__message {
+    font-size: 0.48rem;
+  }
 }
 
 /*button*/
@@ -33,4 +74,30 @@
   border-radius: 0.053333rem;
   color: #666;
   font-size: 0.426667rem;
+}
+
+/*toast*/
+.van-toast {
+  width: auto;
+  .fs32;
+  .van-toast__text {
+    .fs32;
+  }
+}
+
+/*picker*/
+.van-picker__toolbar {
+  height: 1rem;
+  .fs32;
+  line-height: 1rem;
+}
+.van-picker-column {
+  .fs32;
+}
+
+/*loading*/
+.van-loading {
+  margin: 0 auto;
+  .width(50) !important;
+  .height(50) !important;
 }

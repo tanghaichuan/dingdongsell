@@ -6,6 +6,7 @@ import Order from '@/page/order'
 import Profile from '@/page/profile'
 import ProfileInfo from '@/page/profile/info'
 import address from '@/page/profile/address'
+import addAddress from '@/page/profile/addAddress'
 
 export default [
   {
@@ -54,6 +55,24 @@ export default [
         name: 'profileAddress',
         component: address,
         meta: {
+          validLogin: true
+        }
+      },
+      {
+        path: '/profile/address/add',
+        name: 'addAddress',
+        component: addAddress,
+        meta: {
+          title: '添加地址',
+          validLogin: true
+        }
+      },
+      {
+        path: '/profile/address/edit/:addressId',
+        name: 'editAddress',
+        component: addAddress,
+        meta: {
+          title: '编辑地址',
           validLogin: true
         }
       }

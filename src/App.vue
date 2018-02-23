@@ -16,11 +16,13 @@ body {
   width: 10rem;
   margin: 0 auto;
   position: relative;
-  z-index: -1;
   overflow: hidden;
   background-color: #f5f5f5;
+  z-index: -99;
   #app {
     height: 100%;
+    position: relative;
+    z-index: -99;
   }
 }
 </style>

@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-    <div class="link-search">
-      <van-search placeholder="请输入商品名称" v-model="searchVal" />
+    <div class="main-container">
+      <div class="link-search">
+        <van-search placeholder="请输入商品名称" v-model="searchVal" />
+      </div>
+      <van-swipe class="home-swipe" :autoplay="3000">
+        <van-swipe-item>
+          <img src='../../../static/img/swipe1.jpg' alt="">
+        </van-swipe-item>
+        <van-swipe-item>
+          <img src='../../../static/img/swipe2.jpg' alt="">
+        </van-swipe-item>
+      </van-swipe>
+      <div class="home-geohash">
+        <van-icon name="location" />
+        <span class="geohash-text">{{address}}</span>
+      </div>
     </div>
-    <van-swipe class="home-swipe" :autoplay="3000">
-      <van-swipe-item>
-        <img src='../../../static/img/swipe1.jpg' alt="">
-      </van-swipe-item>
-      <van-swipe-item>
-        <img src='../../../static/img/swipe2.jpg' alt="">
-      </van-swipe-item>
-    </van-swipe>
-    <div class="home-geohash">
-      <van-icon name="location" />
-      <span class="geohash-text">{{address}}</span>
-    </div>
+    
     <nav class="nav-container">
       <van-row class="nav-wrapper">
         <van-col span="6">
@@ -105,7 +108,6 @@ export default {
 .home-geohash,
 .link-search {
   color: #fff;
-  .mt(42);
 }
 .link-search {
   position: sticky;
@@ -123,7 +125,7 @@ export default {
   border-radius: 50%;
   background: #fff;
   position: absolute;
-  .top(300);
+  .top(380);
   left: 325/75*1rem;
   display: flex;
   justify-content: center;
@@ -144,15 +146,18 @@ export default {
     white-space: nowrap;
   }
 }
-.nav-container {
+.main-container {
   position: relative;
-  .top(400);
+  .height(450);
+  .pt(42);
+}
+.nav-container {
   overflow: hidden;
   text-align: center;
   background: #fff;
   .nav-wrapper {
     figure {
-      margin-top: 0.293333rem;
+      .mb(10);
     }
     img {
       width: 60%;

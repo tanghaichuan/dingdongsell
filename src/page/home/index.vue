@@ -1,9 +1,9 @@
 <template>
   <div class="home">
+    <div class="link-search">
+      <van-search placeholder="请输入商品名称" v-model="searchVal" />
+    </div>
     <div class="main-container">
-      <div class="link-search">
-        <van-search placeholder="请输入商品名称" v-model="searchVal" />
-      </div>
       <van-swipe class="home-swipe" :autoplay="3000">
         <van-swipe-item>
           <img src='../../../static/img/swipe1.jpg' alt="">
@@ -17,7 +17,6 @@
         <span class="geohash-text">{{address}}</span>
       </div>
     </div>
-    
     <nav class="nav-container">
       <van-row class="nav-wrapper">
         <van-col span="6">
@@ -52,7 +51,10 @@
         </van-col>
       </van-row>
     </nav>
-    <div class="foot-container">
+    <div class="shop-container">
+      <div class="shop-title">
+        推荐商家
+      </div>
       <shopList></shopList>
     </div>
     <footerBar></footerBar>
@@ -77,19 +79,18 @@ export default {
         '../../../static/img/swipe2.jpg'
       ]
     }
-  }
+  },
+  mounted() {}
 }
 </script>
 <style lang="less">
 @import '../../assets/styles/mixins.less';
 
 .home {
-  background: #fff;
-  height: 100%;
   position: relative;
   z-index: -99;
   .home-swipe {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -110,8 +111,9 @@ export default {
   color: #fff;
 }
 .link-search {
+  .mt(40);
   position: sticky;
-  top: 0px;
+  top: 0;
   z-index: 999;
   text-align: center;
   .van-search {
@@ -148,13 +150,20 @@ export default {
 }
 .main-container {
   position: relative;
+  .top(-100);
   .height(450);
   .pt(42);
+  background: #fff;
+  z-index: -10;
 }
 .nav-container {
+  .pb(30);
+  position: relative;
+  .top(-100);
   overflow: hidden;
   text-align: center;
   background: #fff;
+  border-bottom: 0.025rem solid #e4e4e4;
   .nav-wrapper {
     figure {
       .mb(10);
@@ -171,7 +180,34 @@ export default {
     }
   }
 }
-.foot-container {
+.shop-container {
   position: relative;
+  .top(-50);
+  border-top: 0.025rem solid #e4e4e4;
+}
+.shop-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.96rem;
+  font-size: 0.4rem;
+  color: #000;
+  background-color: #fff;
+  &::before {
+    margin-right: 0.346667rem;
+    display: block;
+    content: '';
+    width: 0.533333rem;
+    height: 0.026667rem;
+    background-color: #999;
+  }
+  &::after {
+    margin-left: 0.346667rem;
+    display: block;
+    content: '';
+    width: 0.533333rem;
+    height: 0.026667rem;
+    background-color: #999;
+  }
 }
 </style>

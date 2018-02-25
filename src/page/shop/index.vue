@@ -10,6 +10,7 @@
     </div>
   </div>
   <menu-view v-show="changeShowType==='food'"></menu-view>
+
 </div>
 </template>
 <script>

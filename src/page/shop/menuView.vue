@@ -1,46 +1,48 @@
 <!--商品视图-->
 <template>
   <div class="menue-view">
-    <div class="menu-category" ref="category">
-      <ul>
-        <li 
-          v-for="(item,index) in goods" 
-          :key="index"
-          :class="['menu-item',{'current':currentIndex === index}]" 
-          @click="selectMenu(index,$event)">
-          <span class="text">
-            <span v-show="item.type > 0" :class="['icon','special']"></span>
-            {{item.name}}
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="menu-content" ref="content">
-      <ul>
-        <li v-for="(item,index) in goods" class="content-list-hook" :key="index">
-          <h1 class="title">{{item.name}}</h1>
-          <ul>
-            <li v-for="(food,inx) in item.foods" class="food-item" :key="inx">
-              <div class="thumb">
-                <img :src="food.icon" alt="">
-              </div>
-              <div class="content">
-                <h2 class="name">{{food.name}}</h2>
-                <p class="desc">{{food.description}}</p>
-                <div class="extra">
-                  <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+    <div class="menu-container">
+      <div class="menu-category" ref="category">
+        <ul>
+          <li 
+            v-for="(item,index) in goods" 
+            :key="index"
+            :class="['menu-item',{'current':currentIndex === index}]" 
+            @click="selectMenu(index,$event)">
+            <span class="text">
+              <span v-show="item.type > 0" :class="['icon','special']"></span>
+              {{item.name}}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="menu-content" ref="content">
+        <ul>
+          <li v-for="(item,index) in goods" class="content-list-hook" :key="index">
+            <h1 class="title">{{item.name}}</h1>
+            <ul>
+              <li v-for="(food,inx) in item.foods" class="food-item" :key="inx">
+                <div class="thumb">
+                  <img :src="food.icon" alt="">
                 </div>
-                <div class="price">
-                  <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                <div class="content">
+                  <h2 class="name">{{food.name}}</h2>
+                  <p class="desc">{{food.description}}</p>
+                  <div class="extra">
+                    <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+                  </div>
+                  <div class="price">
+                    <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  </div>
+                  <div class="cart-wrapper">
+                    <cart-control :food="food"></cart-control>
+                  </div>
                 </div>
-                <div class="cart-wrapper">
-                  <cart-control :food="food"></cart-control>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
     <shop-cart :select-foods="selectFoods"></shop-cart>
   </div>
@@ -149,16 +151,18 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/styles/mixins.less';
 .menue-view {
-  display: flex;
-  width: 100%;
-  .height(960);
-  overflow: hidden;
-  background: #fff;
+  .height(970);
+  .menu-container {
+    display: flex;
+    width: 100%;
+    .height(900);
+    overflow: hidden;
+    background: #fff;
+  }
   .menu-category {
     flex: 0 0 160/75*1rem;
     .width(160);
     background: #f8f8f8;
-    height: 100%;
     .menu-item {
       .pd(0, 24, 0, 24);
       display: table;

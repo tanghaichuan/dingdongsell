@@ -20,6 +20,7 @@ body {
   #app {
     position: relative;
     z-index: -99;
+    overflow-x: hidden;
   }
 }
 </style>

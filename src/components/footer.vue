@@ -58,6 +58,8 @@ footer {
   height: 1.6rem;
 }
 .van-tabbar {
+  margin: 0 auto;
+  max-width: 10rem;
   position: fixed;
   left: 0;
   right: 0;

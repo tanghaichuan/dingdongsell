@@ -7,6 +7,7 @@ import Profile from '@/page/profile'
 import ProfileInfo from '@/page/profile/info'
 import address from '@/page/profile/address'
 import addAddress from '@/page/profile/addAddress'
+import shop from '@/page/shop'
 
 export default [
   {
@@ -46,7 +47,7 @@ export default [
         }
       },
       {
-        path: '/profile/info',
+        path: 'profile/info',
         name: 'profileInfo',
         component: ProfileInfo
       },
@@ -59,7 +60,7 @@ export default [
         }
       },
       {
-        path: '/profile/address/add',
+        path: 'profile/address/add',
         name: 'addAddress',
         component: addAddress,
         meta: {
@@ -68,13 +69,18 @@ export default [
         }
       },
       {
-        path: '/profile/address/edit/:addressId',
+        path: 'profile/address/edit/:addressId',
         name: 'editAddress',
         component: addAddress,
         meta: {
           title: '编辑地址',
           validLogin: true
         }
+      },
+      {
+        path: 'shop/:id',
+        name: 'shop',
+        component: shop
       }
     ]
   },

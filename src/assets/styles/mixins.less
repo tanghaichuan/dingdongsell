@@ -1,5 +1,5 @@
 //基础颜色
-@white:#fff;
+@white: #fff;
 @black: #000;
 @dark-gray: #707070;
 @gray: #afafaf;
@@ -212,4 +212,32 @@
 }
 .right(@px) {
   right: @px / 75 * 1rem;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: top;
+  .width(24);
+  .height(24);
+  .mr(8);
+  &.decrease {
+    background: url(../images/decrease_1.png) center center no-repeat;
+    background-size: 100% auto;
+  }
+  &.discount {
+    background: url(../images/discount_1.png) center center no-repeat;
+    background-size: 100% auto;
+  }
+  &.guarantee {
+    background: url(../images/guarantee_1.png) center center no-repeat;
+    background-size: 100% auto;
+  }
+  &.invoice {
+    background: url(../images/invoice_1.png) center center no-repeat;
+    background-size: 100% auto;
+  }
+  &.special {
+    background: url(../images/special_1.png) center center no-repeat;
+    background-size: 100% auto;
+  }
 }

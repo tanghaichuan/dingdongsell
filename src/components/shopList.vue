@@ -2,7 +2,7 @@
   <div class="shoplist-container">
     <ul v-load-more="loaderMore" v-if="shopLists.length" type='1'>
       <router-link 
-        to="shop" 
+        :to="{name:'shop',params:{id:item.id}}" 
         v-for="item in shopLists" 
         tag="li" 
         :key="item.id"

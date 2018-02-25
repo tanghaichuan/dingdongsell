@@ -21,7 +21,8 @@ const state = {
       tel: '1310000000',
       address: '浙江省杭州市拱墅区莫干山路 50 号'
     }
-  ]
+  ],
+  selectFoods: [] // 购物车
 }
 
 export default new Vuex.Store({

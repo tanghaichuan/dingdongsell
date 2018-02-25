@@ -42,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <shop-cart></shop-cart>
+    <shop-cart :select-foods="selectFoods"></shop-cart>
   </div>
 </template>
 <script>
@@ -74,18 +74,18 @@ export default {
         }
       }
       return 0
+    },
+    selectFoods() {
+      let foods = []
+      this.goods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
-    // selectFoods() {
-    //   let foods = []
-    //   this.goods.forEach(good => {
-    //     good.foods.forEach(food => {
-    //       if (food.count) {
-    //         foods.push(food)
-    //       }
-    //     })
-    //   })
-    //   return foods
-    // }
   },
   methods: {
     async getGoodsList() {
@@ -114,10 +114,8 @@ export default {
         click: true
       })
       this.contentScroll.on('scroll', pos => {
-        console.log(pos)
         this.scrollY = Math.abs(Math.round(pos.y))
       })
-      console.log(this.contentScroll)
     },
     _calculateHeight() {
       let contentList = this.$refs.content.getElementsByClassName(

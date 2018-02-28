@@ -132,9 +132,6 @@ export default {
       }
     },
     selectMenu(index, event) {
-      if (event._constructed) {
-        return
-      }
       let contentList = this.$refs.content.getElementsByClassName(
         'content-list-hook'
       )
@@ -144,8 +141,7 @@ export default {
   },
   async created() {
     await this.getGoodsList()
-  },
-  mounted() {}
+  }
 }
 </script>
 <style lang="less" scoped>

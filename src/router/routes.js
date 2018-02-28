@@ -8,6 +8,7 @@ import ProfileInfo from '@/page/profile/info'
 import address from '@/page/profile/address'
 import addAddress from '@/page/profile/addAddress'
 import shop from '@/page/shop'
+import shopDetails from '@/page/shop/shopDetails'
 
 export default [
   {
@@ -81,6 +82,11 @@ export default [
         path: 'shop/:id',
         name: 'shop',
         component: shop
+      },
+      {
+        path: 'shop/details/:id',
+        name: 'shopDetails',
+        component: shopDetails
       }
     ]
   },

@@ -13,3 +13,13 @@ export const getGoodsList = () =>
   server(
     'https://www.easy-mock.com/mock/5a4c9a6281bb592653f70c6b/example/getGoodLists'
   )
+
+/**
+ * 获取店铺评价列表
+ */
+export const queryRatingList = data =>
+  server(
+    'https://easy-mock.com/mock/5a4c9a6281bb592653f70c6b/example/queryRatingList',
+    data,
+    'post'
+  )

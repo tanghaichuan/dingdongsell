@@ -10,18 +10,20 @@
     </div>
   </div>
   <menu-view v-show="changeShowType==='food'"></menu-view>
-
+  <shop-rating v-show="changeShowType==='rating'"></shop-rating>
 </div>
 </template>
 <script>
 import shopHeader from './shopHeader'
 import menuView from './menuView'
+import shopRating from './shopRating'
 
 export default {
   name: 'shop',
   components: {
     shopHeader,
-    menuView
+    menuView,
+    shopRating
   },
   data() {
     return {

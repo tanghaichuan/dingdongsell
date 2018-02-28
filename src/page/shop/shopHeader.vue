@@ -46,7 +46,12 @@ export default {
     }
   },
   methods: {
-    showShopDetails() {},
+    showShopDetails() {
+      this.$router.push({
+        name: 'shopDetails',
+        params: { id: this.$route.params.id }
+      })
+    },
     toggleModal() {}
   }
 }

@@ -40,9 +40,13 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../assets/styles/mixins.less';
+.profile-address {
+  padding-top: 1.173333rem;
+}
 .address {
-  margin-top: 1.173333rem;
   .van-cell {
+    .height(80);
     background-color: #fff;
     padding: 0.2rem;
     border-bottom: 1px solid #ddd;

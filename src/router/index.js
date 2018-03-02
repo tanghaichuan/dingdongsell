@@ -24,7 +24,6 @@ router.beforeEach((to, from, next) => {
     .dispatch('fetchUser') // 从本地存储对象中获取登录信息
   if (to.meta.validLogin && !store.state.isLogin) {
     // 需要登录才能继续操作
-    initDialog()
     Dialog
       .confirm({title: '未登录', closeOnClickOverlay: true, showCancelButton: false, confirmButtonText: '去登录'})
       .then(() => {

@@ -167,10 +167,11 @@ export default {
         deliverFee: this.shop.deliverFee,
         deliverTime: this.shop.deliverTime,
         name: this.shop.name,
-        foods: this.selectFoods
+        foods: this.selectFoods,
+        shop: this.shop,
+        sum: this.totalPrice
       }
       local.set('order', order)
-
       this.$router.push({ name: 'ConfirmOrder' })
     }
   },

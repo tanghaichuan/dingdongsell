@@ -4,3 +4,6 @@ export const DEL_ADDRESS = 'DEL_ADDRESS' // 删除收获地址
 export const ADD_GOOD = 'ADD_GOOD' // 添加商品
 export const DEL_GOOD = 'DEL_GOOD' // 减少商品
 export const SET_SHOP = 'SET_SHOP' // 获取当前商店基本信息
+export const ADD_ORDER = 'ADD_ORDER' // 增加订单
+export const SAVE_ORDER = 'SAVE_ORDER' // 保存订单
+export const DEL_ORDER = 'DEL_ORDER' // 删除订单

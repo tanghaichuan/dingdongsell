@@ -4,6 +4,7 @@ import NotFound from '@/components/NotFound'
 import Home from '@/page/home'
 import Order from '@/page/order'
 import ConfirmOrder from '@/page/order/confirmOrder'
+import OrderDetail from '@/page/order/orderDetail'
 import Profile from '@/page/profile'
 import ProfileInfo from '@/page/profile/info'
 import Address from '@/page/profile/address'
@@ -104,6 +105,12 @@ export default[
         path: 'search',
         name: 'search',
         component: Search
+      },
+      // 订单详情页
+      {
+        path: 'orderDetail/:id',
+        name: 'orderDetail',
+        component: OrderDetail
       }
     ]
   }, {

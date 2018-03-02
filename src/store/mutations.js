@@ -17,5 +17,10 @@ export default {
   },
   [constant.SET_SHOP](state, payload) {
     state.shop = payload
+  },
+  [constant.ADD_ORDER](state, payload) {
+    state
+      .orders
+      .push(payload)
   }
 }

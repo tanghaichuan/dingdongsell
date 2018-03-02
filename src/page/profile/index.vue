@@ -149,7 +149,7 @@ export default {
   display: flex;
   align-items: center;
   padding-left: 0.466667rem;
-  line-height: 2.5;
+  line-height: 1.5;
   .van-cell__title {
     display: flex;
     align-items: center;

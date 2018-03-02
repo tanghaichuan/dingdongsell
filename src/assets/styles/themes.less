@@ -10,13 +10,12 @@ body {
   font-size: @base-fs;
   height: 100%;
   color: #333;
+  line-height: 1.5;
+  .pl(30);
   .van-field__control {
     .fs32;
   }
   .van-cell__value {
-    flex: 1;
-    display: flex;
-    align-items: center;
     input {
       min-height: 0.46666rem;
       outline: none;
@@ -37,6 +36,8 @@ body {
   .van-cell__title {
     padding: 0.373333rem 0;
     line-height: 0.48rem;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -152,4 +153,59 @@ body {
 .van-cell .van-cell__value input{
   height: 100%;
   min-height: 100%;
+}
+
+/*popup*/
+.van-popup--bottom {
+  height: 100%;
+  .van-cell{
+    height: 2.06666667rem;
+    background-color: #fff;
+    padding: 0.2rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    min-height: 1.813333rem;
+    .van-address-list__name,.van-address-list__address{
+      font-size: 0.426667rem;
+      color: #333;
+    }
+  }
+  .van-cell__value{
+    color: #333;
+    padding-right: 34px;
+    position: relative;
+  }
+  .van-radio__label{
+    margin-left: 0.7rem;
+  }
+  .van-address-list__add .van-cell__text{
+    color: #3190e8;
+    font-size: 0.426667rem;
+  }
+  .van-icon{
+    .fs(42);
+  }
+}
+/*steps*/
+.van-step{
+  .fs(32);
+}
+.van-step__title{
+  .fs(28);
+}
+.van-step--horizontal.van-step--process .van-icon{
+  .fs(24);
+}
+.van-step--horizontal.van-step--process .van-step__circle-container{
+  .top(50);
+}
+.van-steps--horizontal .van-steps__items{
+  .pb(50);
+}
+.van-step--horizontal .van-step__line{
+  .top(60);
+}
+.van-step--horizontal .van-step__circle-container{
+  .top(60);
 }

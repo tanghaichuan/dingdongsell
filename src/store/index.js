@@ -22,7 +22,8 @@ const state = {
     }
   ],
   selectFoods: [], // 购物车
-  shop: {}
+  shop: {},
+  orders: [] // 订单列表
 }
 
 export default new Vuex.Store({state, actions, mutations})

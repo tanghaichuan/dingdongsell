@@ -93,6 +93,7 @@ export default {
   }
   .van-cell__title {
     flex-basis: 1.733333rem;
+    margin-right: 0.3rem;
   }
 }
 .address__add {

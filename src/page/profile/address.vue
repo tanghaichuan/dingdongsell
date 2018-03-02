@@ -14,6 +14,7 @@
 <script>
 import { mapState } from 'vuex'
 import headerBar from '@/components/header'
+import { session } from '@/utils/storage'
 
 export default {
   name: 'profileAddress',
@@ -35,7 +36,9 @@ export default {
     handleEdit(item, index) {
       this.$router.push({ name: 'editAddress', params: { addressId: item.id } })
     },
-    handleSelect() {}
+    handleSelect(item) {
+      session.set('address', item)
+    }
   }
 }
 </script>

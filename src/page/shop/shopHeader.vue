@@ -7,11 +7,11 @@
     <div class="shop-header-main">
       <img src="https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/" alt="">
       <div class="shop-header-content">
-        <h2>上品烧烤</h2>
+        <h2>{{shop.name}}</h2>
         <p class="header-delivery">
           <span class="delivery-item">商家配送</span>
-          <span class="delivery-item">40分钟送达</span>
-          <span class="delivery-item">配送费￥9</span>
+          <span class="delivery-item">{{shop.deliverTime}}分钟送达</span>
+          <span class="delivery-item">配送费￥{{shop.deliverFee}}</span>
         </p>
         <div class="header-notice">
           <span>公告：</span>
@@ -34,6 +34,12 @@
 <script>
 export default {
   name: 'shopHeader',
+  props: {
+    shop: {
+      type: Object,
+      default: () => {}
+    }
+  },
   computed: {
     supportType() {
       return [

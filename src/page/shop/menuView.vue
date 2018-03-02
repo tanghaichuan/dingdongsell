@@ -61,9 +61,14 @@ export default {
   },
   data() {
     return {
-      goods: [],
       listHeight: [],
       scrollY: 0
+    }
+  },
+  props: {
+    goods: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
@@ -90,21 +95,6 @@ export default {
     }
   },
   methods: {
-    async getGoodsList() {
-      try {
-        let list = await getGoodsList()
-        this.goods = [...list.data]
-        this.$nextTick(() => {
-          this._initScroll()
-          this._calculateHeight()
-        })
-      } catch (error) {
-        this.$toast({
-          type: 'fail',
-          message: error
-        })
-      }
-    },
     _initScroll() {
       let category = this.$refs.category
       let content = this.$refs.content
@@ -139,8 +129,15 @@ export default {
       this.contentScroll.scrollToElement(el, 100)
     }
   },
-  async created() {
-    await this.getGoodsList()
+  watch: {
+    goods(val) {
+      if (val) {
+        this.$nextTick(() => {
+          this._initScroll()
+          this._calculateHeight()
+        })
+      }
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
 <div class="shop">
-  <shop-header></shop-header>
+  <shop-header :shop="shop"></shop-header>
   <div class="tab">
     <div class="tab-item" @click="changeShowType='food'">
       <span :class="{activity_show:changeShowType==='food'}">商品</span>
@@ -9,14 +9,16 @@
       <span :class="{activity_show:changeShowType==='rating'}">评论</span>
     </div>
   </div>
-  <menu-view v-show="changeShowType==='food'"></menu-view>
+  <menu-view :goods="goods" v-show="changeShowType==='food'"></menu-view>
   <shop-rating v-show="changeShowType==='rating'"></shop-rating>
 </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 import shopHeader from './shopHeader'
 import menuView from './menuView'
 import shopRating from './shopRating'
+import { getGoodsList } from '@/api'
 
 export default {
   name: 'shop',
@@ -27,8 +29,38 @@ export default {
   },
   data() {
     return {
-      changeShowType: 'food'
+      changeShowType: 'food',
+      goods: [],
+      shop: {}
     }
+  },
+  methods: {
+    ...mapMutations(['SET_SHOP']),
+    async queryGoods() {
+      try {
+        const params = {
+          id: this.$route.params.id
+        }
+        const shop = await getGoodsList(params)
+        this.goods = shop.goods
+        this.shop = Object.assign({}, this.shop, {
+          name: shop.name,
+          img: shop.img,
+          text: shop.text,
+          deliverFee: shop.deliverFee,
+          deliverTime: shop.deliverTime
+        })
+        this.SET_SHOP(this.shop)
+      } catch (error) {
+        this.$toast({
+          type: 'fail',
+          message: error
+        })
+      }
+    }
+  },
+  created() {
+    this.queryGoods()
   }
 }
 </script>

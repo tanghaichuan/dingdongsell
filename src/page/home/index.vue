@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="link-search">
-      <van-search placeholder="请输入商品名称" v-model="searchVal" />
+      <van-search @click.native="linkToSearch" placeholder="请输入商品名称" v-model="searchVal" />
     </div>
     <div class="main-container">
       <van-swipe class="home-swipe" :autoplay="3000">
@@ -80,7 +80,11 @@ export default {
       ]
     }
   },
-  mounted() {}
+  methods: {
+    linkToSearch() {
+      this.$router.push({ name: 'search' })
+    }
+  }
 }
 </script>
 <style lang="less">

@@ -50,8 +50,10 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import BSroll from 'better-scroll'
 import cartControl from './cartControl'
+import { local } from '@/utils/storage'
 
 export default {
   name: 'shopCart',
@@ -90,6 +92,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['shop']),
     totalPrice() {
       let total = 0
       this.selectFoods.forEach(food => {
@@ -160,7 +163,15 @@ export default {
       if (this.totalPrice < this.minPrice) {
         return
       }
-      console.log('pay')
+      const order = {
+        deliverFee: this.shop.deliverFee,
+        deliverTime: this.shop.deliverTime,
+        name: this.shop.name,
+        foods: this.selectFoods
+      }
+      local.set('order', order)
+
+      this.$router.push({ name: 'ConfirmOrder' })
     }
   },
   mounted() {

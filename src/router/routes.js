@@ -3,18 +3,20 @@ import Login from '@/page/login'
 import NotFound from '@/components/NotFound'
 import Home from '@/page/home'
 import Order from '@/page/order'
+import ConfirmOrder from '@/page/order/confirmOrder'
 import Profile from '@/page/profile'
 import ProfileInfo from '@/page/profile/info'
-import address from '@/page/profile/address'
-import addAddress from '@/page/profile/addAddress'
-import shop from '@/page/shop'
-import shopDetails from '@/page/shop/shopDetails'
+import Address from '@/page/profile/address'
+import AddAddress from '@/page/profile/addAddress'
+import Shop from '@/page/shop'
+import ShopDetails from '@/page/shop/shopDetails'
+import Search from '@/page/search'
 
-export default [
+export default[
   {
-    path: '/',
-    component: App,
-    children: [
+    path : '/',
+    component : App,
+    children : [
       {
         path: 'login',
         name: 'login',
@@ -37,6 +39,13 @@ export default [
         meta: {
           active: 1
         }
+      }, {
+        path: 'checkout',
+        name: 'ConfirmOrder',
+        component: ConfirmOrder,
+        meta: {
+          validLogin: true
+        }
       },
       // 个人设置页
       {
@@ -47,52 +56,59 @@ export default [
           active: 2
         }
       },
+      // 个人信息详情页
       {
         path: 'profile/info',
         name: 'profileInfo',
         component: ProfileInfo
       },
+      // 个人收货地址管理页
       {
         path: '/profile/address',
         name: 'profileAddress',
-        component: address,
+        component: Address,
         meta: {
           validLogin: true
         }
-      },
-      {
+      }, {
         path: 'profile/address/add',
         name: 'addAddress',
-        component: addAddress,
+        component: AddAddress,
         meta: {
           title: '添加地址',
           validLogin: true
         }
-      },
-      {
+      }, {
         path: 'profile/address/edit/:addressId',
         name: 'editAddress',
-        component: addAddress,
+        component: AddAddress,
         meta: {
           title: '编辑地址',
           validLogin: true
         }
       },
+      // 店铺商品列表页
       {
         path: 'shop/:id',
         name: 'shop',
-        component: shop
+        component: Shop
       },
+      // 店铺详情页
       {
         path: 'shop/details/:id',
         name: 'shopDetails',
-        component: shopDetails
+        component: ShopDetails
+      },
+      // 主页商品/店铺搜索页
+      {
+        path: 'search',
+        name: 'search',
+        component: Search
       }
     ]
-  },
-  {
-    name: '404',
-    path: '*',
-    component: NotFound
+  }, {
+    name : '404',
+    path : '*',
+    component : NotFound
   }
 ]

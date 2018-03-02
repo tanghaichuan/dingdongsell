@@ -8,7 +8,7 @@ body {
 .van-cell {
   display: flex;
   font-size: @base-fs;
-  line-height: 0.48rem;
+  height: 100%;
   color: #333;
   .van-field__control {
     .fs32;
@@ -35,7 +35,6 @@ body {
     }
   }
   .van-cell__title {
-    font-weight: 700;
     padding: 0.373333rem 0;
     line-height: 0.48rem;
   }
@@ -147,4 +146,10 @@ body {
 /*icon*/
 .van-icon {
   .fs32;
+}
+
+/*form*/
+.van-cell .van-cell__value input{
+  height: 100%;
+  min-height: 100%;
 }

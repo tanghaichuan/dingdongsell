@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -20,7 +18,6 @@ body {
   #app {
     position: relative;
     z-index: -99;
-    overflow: hidden;
   }
 }
 </style>

@@ -12,6 +12,7 @@ import AddAddress from '@/page/profile/addAddress'
 import Shop from '@/page/shop'
 import ShopDetails from '@/page/shop/shopDetails'
 import Search from '@/page/search'
+import Food from '@/page/food'
 
 export default[
   {
@@ -111,6 +112,12 @@ export default[
         path: 'orderDetail/:id',
         name: 'orderDetail',
         component: OrderDetail
+      },
+      // 商品列表页
+      {
+        path: 'food/:category',
+        name: 'food',
+        component: Food
       }
     ]
   }, {

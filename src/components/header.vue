@@ -6,7 +6,12 @@
       :right-text='rightText'
       @click-right="onClickRight"
       @click-left="onClickLeft"
-    />
+    >
+    <div class="title" v-if="$slots.default" slot="title">
+      <slot></slot>
+    </div>
+    </van-nav-bar>
+
   </header>
 </template>
 <script>
@@ -62,6 +67,9 @@ header {
     display: flex;
     align-items: center;
     .fs(32);
+  }
+  .title {
+    width: 100%;
   }
 }
 </style>

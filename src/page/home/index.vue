@@ -19,35 +19,13 @@
     </div>
     <nav class="nav-container">
       <van-row class="nav-wrapper">
-        <van-col span="6">
-          <figure>
-            <img src="../../assets/images/biandang.png">
-            <figcaption>便当</figcaption>
-          </figure>
-        </van-col>
-        <van-col span="6">
-          <figure>
-            <img src="../../assets/images/huoguo.png">
-            <figcaption>火锅</figcaption>
-          </figure>
-        </van-col>
-        <van-col span="6">
-          <figure>
-            <img src="../../assets/images/hanbao.jpg">
-            <figcaption>汉堡快餐</figcaption>
-          </figure>
-        </van-col>
-        <van-col span="6">
-          <figure>
-            <img src="../../assets/images/difang.png">
-            <figcaption>地方菜系</figcaption>
-          </figure>
-        </van-col>
-        <van-col span="6">
-          <figure>
-            <img src="../../assets/images/mianshi.png">
-            <figcaption>面食粥点</figcaption>
-          </figure>
+        <van-col v-for="(item, index) in navList" :key="index" span="6">
+          <router-link :to="{name:'food',params:{category:item.name}}">
+            <figure>
+              <img :src="item.img">
+              <figcaption>{{item.name}}</figcaption>
+            </figure>
+          </router-link>
         </van-col>
       </van-row>
     </nav>
@@ -72,6 +50,28 @@ export default {
   },
   data() {
     return {
+      navList: [
+        {
+          name: '便当',
+          img: require('../../assets/images/biandang.png')
+        },
+        {
+          name: '火锅',
+          img: require('../../assets/images/huoguo.png')
+        },
+        {
+          name: '汉堡快餐',
+          img: require('../../assets/images/hanbao.jpg')
+        },
+        {
+          name: '地方菜系',
+          img: require('../../assets/images/mianshi.png')
+        },
+        {
+          name: '面食粥点',
+          img: require('../../assets/images/mianshi.png')
+        }
+      ],
       searchVal: '',
       address: '请选择地址',
       images: [

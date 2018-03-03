@@ -1,6 +1,6 @@
 <template>
   <div class="shoplist-container">
-    <ul v-load-more="loaderMore" v-if="shopLists.length" type='1'>
+    <ul v-load-more="loaderMore" class="shoplist-wrap" v-if="shopLists.length" type='1'>
       <router-link 
         :to="{name:'shop',params:{id:item.id}}" 
         v-for="item in shopLists" 
@@ -292,6 +292,8 @@ export default {
 
 .shoplist-container {
   background-color: #fff;
+}
+.shoplist-wrap {
   margin-bottom: 2rem;
 }
 .shop-li {

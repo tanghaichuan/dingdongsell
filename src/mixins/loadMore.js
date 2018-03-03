@@ -1,7 +1,7 @@
-import { getStyle } from '@/utils/dom'
+import {getStyle} from '@/utils/dom'
 
 export default {
-  directives: {
+  directives : {
     'load-more': {
       bind: (el, binding) => {
         let windowHeight = window.screen.height
@@ -22,37 +22,24 @@ export default {
           scrollEl = document.body
           heightEl = el
         }
+        el.addEventListener('touchstart', () => {
+          height = heightEl.clientHeight
+          if (scrollType == 2) {
+            height = height
+          }
+          setTop = el.offsetTop
+          paddingBottom = getStyle(el, 'paddingBottom')
+          marginBottom = getStyle(el, 'marginBottom')
+        }, false)
 
-        el.addEventListener(
-          'touchstart',
-          () => {
-            height = heightEl.clientHeight
-            if (scrollType == 2) {
-              height = height
-            }
-            setTop = el.offsetTop
-            paddingBottom = getStyle(el, 'paddingBottom')
-            marginBottom = getStyle(el, 'marginBottom')
-          },
-          false
-        )
+        el.addEventListener('touchmove', () => {
+          loadMore()
+        }, false)
 
-        el.addEventListener(
-          'touchmove',
-          () => {
-            loadMore()
-          },
-          false
-        )
-
-        el.addEventListener(
-          'touchend',
-          () => {
-            oldScrollTop = scrollEl.scrollTop
-            moveEnd()
-          },
-          false
-        )
+        el.addEventListener('touchend', () => {
+          oldScrollTop = scrollEl.scrollTop
+          moveEnd()
+        }, false)
 
         const moveEnd = () => {
           requestFram = requestAnimationFrame(() => {
@@ -68,10 +55,7 @@ export default {
         }
 
         const loadMore = () => {
-          if (
-            scrollEl.scrollTop + windowHeight >=
-            height + setTop + paddingBottom + marginBottom - scrollReduce
-          ) {
+          if (scrollEl.scrollHeight - scrollEl.scrollTop === scrollEl.clientHeight) {
             binding.value()
           }
         }

@@ -49,7 +49,10 @@ export default {
 }
 .address {
   .van-cell {
-    .height(80);
+    &:first-child {
+      .mt(10);
+    }
+    .height(100);
     background-color: #fff;
     padding: 0.2rem;
     border-bottom: 1px solid #ddd;

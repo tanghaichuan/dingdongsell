@@ -124,6 +124,7 @@ body {
 
 /*input*/
 .van-search {
+  height: 100%;
   background: #fff !important;
   .br(32);
   .van-icon-search {
@@ -213,4 +214,43 @@ body {
 }
 .van-step--horizontal .van-step__circle-container{
   .top(60);
+}
+/*navbar*/
+header {
+  .van-nav-bar .van-icon {
+    color: #5f5b5b;
+  }
+  .van-nav-bar__title {
+    color: #5f5b5b;
+  }
+  .van-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #e7ded6;
+    height: 1.173333rem;
+  }
+  .van-nav-bar__title {
+    height: 100%;
+    display: inline-block;
+    .fs42;
+    line-height: 2;
+    text-align: center;
+  }
+  .van-nav-bar__left {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .fs(32);
+  }
+  .van-nav-bar__right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .fs(32);
+  }
+  .title {
+    width: 100%;
+  }
 }

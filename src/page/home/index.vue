@@ -12,7 +12,7 @@
           <img src='../../../static/img/swipe2.jpg' alt="">
         </van-swipe-item>
       </van-swipe>
-      <div class="home-geohash">
+      <div class="home-geohash" @click="onSearchAddress">
         <van-icon name="location" />
         <span class="geohash-text">{{address}}</span>
       </div>
@@ -35,21 +35,26 @@
       </div>
       <shopList></shopList>
     </div>
+    <search-address @onSaveAddress="onSaveAddress" v-model="showSearchAdd"></search-address>
     <footerBar></footerBar>
   </div>
 </template>
 <script>
 import footerBar from '@/components/footer'
 import shopList from '@/components/shopList'
+import searchAddress from './searchAddress'
+import { local } from '@/utils/storage'
 
 export default {
   name: 'home',
   components: {
     footerBar,
-    shopList
+    shopList,
+    searchAddress
   },
   data() {
     return {
+      showSearchAdd: false,
       navList: [
         {
           name: '便当',
@@ -73,17 +78,34 @@ export default {
         }
       ],
       searchVal: '',
-      address: '请选择地址',
       images: [
         '../../../static/img/swipe1.jpg',
         '../../../static/img/swipe2.jpg'
-      ]
+      ],
+      address: '请选择地址'
     }
   },
   methods: {
     linkToSearch() {
       this.$router.push({ name: 'search' })
+    },
+    onSearchAddress() {
+      this.showSearchAdd = true
+    },
+    onSaveAddress(item) {
+      local.set('address', item)
+      this.address = item
+      this.showSearchAdd = false
+    },
+    initAddress() {
+      let location = local.get('address')
+      if (location) {
+        this.address = location
+      }
     }
+  },
+  created() {
+    this.initAddress()
   }
 }
 </script>

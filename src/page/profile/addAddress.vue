@@ -9,6 +9,7 @@
       :title="title" 
       v-else></headerBar>
     <van-address-edit
+      :address-info="addressInfo"
       class="address__add"
       :area-list="areaList"
       @save="onSave"
@@ -17,8 +18,10 @@
   </div>
 </template>
 <script>
+import { session } from '@/utils/storage'
 import { mapActions } from 'vuex'
 import headerBar from '@/components/header'
+import area from './area'
 
 export default {
   name: 'addAddress',
@@ -29,29 +32,8 @@ export default {
     return {
       title: this.$route.meta.title,
       isSaving: false,
-      areaList: {
-        province_list: {
-          110000: '北京市',
-          120000: '天津市'
-        },
-        city_list: {
-          110100: '北京市',
-          110200: '县',
-          120100: '天津市',
-          120200: '县'
-        },
-        county_list: {
-          110101: '东城区',
-          110102: '西城区',
-          110105: '朝阳区',
-          110106: '丰台区',
-          120101: '和平区',
-          120102: '河东区',
-          120103: '河西区',
-          120104: '南开区',
-          120105: '河北区'
-        }
-      }
+      areaList: {},
+      addressInfo: {}
     }
   },
   methods: {
@@ -74,7 +56,7 @@ export default {
         const { addressId = '-1' } = this.$route.params
         const res = await this.delAddress(addressId)
         setTimeout(() => {
-          this.$router.push({ name: 'profileAddress' })
+          //this.$router.push({ name: 'profileAddress' })
         }, 0)
       } catch (error) {
         this.$toast({
@@ -82,6 +64,21 @@ export default {
           message: error
         })
       }
+    }
+  },
+  created() {
+    this.areaList = Object.assign({}, this.areaList, {
+      province_list: area.province_list,
+      city_list: area.city_list,
+      county_list: area.county_list
+    })
+    if (this.$route.name === 'editAddress') {
+      const { id, name, tel } = session.get('address')
+      this.addressInfo = Object.assign({}, this.addressInfo, {
+        id,
+        name,
+        tel
+      })
     }
   }
 }

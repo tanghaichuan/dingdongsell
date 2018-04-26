@@ -37,15 +37,15 @@
     <div class="food-list">
       <van-cell class="order-container">
         <img :src="getOrder.shop.img" alt="">
-        <span>{{getOrder.shop.name}}</span>
+        <span>{{getOrder.name}}</span>
       </van-cell>
       <van-cell 
         v-for="(item, index) in getOrder.foods" 
         :key="index" 
-        :title="item.name">
+        :title="item.goodsName">
         <div class="num-price">
           <span class="food-num">x {{item.count}}</span>
-          <span class="food-price">￥{{item.count*item.price}}</span>
+          <span class="food-price">￥{{item.count*item.goodsPrice}}</span>
         </div>
       </van-cell>
       <van-cell title="配送费">
@@ -64,6 +64,7 @@ import { isEmpty } from 'lodash'
 import { mapMutations, mapState } from 'vuex'
 import headerBar from '@/components/header'
 import { session, local } from '@/utils/storage'
+import { payOrder, queryAddress } from '@/api'
 
 export default {
   name: 'confirmOrder',
@@ -74,11 +75,11 @@ export default {
     return {
       showList: false,
       chosenAddressId: '',
-      chosenAddress: {}
+      chosenAddress: {},
+      addressLists: []
     }
   },
   computed: {
-    ...mapState(['addressLists']),
     getSelectAddress() {
       if (!isEmpty(this.chosenAddress)) {
         return this.chosenAddress
@@ -104,7 +105,21 @@ export default {
       this.chosenAddress = item
       this.showList = false
     },
-    confrimOrder() {
+    async queryAddressLists() {
+      let res = await queryAddress({ userId: session.get('user').id })
+      if (res.errorCode === 0) {
+        res.data.forEach(item => {
+          const { addressDetail, addressId, addressLabel, addressName } = item
+          this.addressLists.push({
+            id: addressId,
+            name: addressName,
+            tel: addressLabel,
+            address: addressDetail
+          })
+        })
+      }
+    },
+    async confrimOrder() {
       if (!this.getSelectAddress) {
         this.$toast({
           type: 'fail',
@@ -112,25 +127,51 @@ export default {
         })
         return false
       }
+      let foods = this.getOrder.foods
+      let arr = []
+      foods.forEach(item => {
+        arr.push({
+          goodsId: item.id,
+          goodsNum: item.count
+        })
+      })
       const params = {
-        shop: this.getOrder.shop,
-        user: {
-          name: this.getSelectAddress.name,
-          id: this.getSelectAddress.id,
-          tel: this.getSelectAddress.tel,
-          address: this.getSelectAddress.address
-        },
-        foods: this.getOrder.foods,
-        deliverTime: this.getOrder.deliverTime,
-        total: this.total,
-        payType: '在线支付',
-        deliverType: '蜂鸟专送',
-        orderTime: moment().format('YYYY-MM-DD hh:mm')
+        userId: session.get('user').id,
+        businessId: session.get('currentShop').id,
+        orderStatus: 1, // 0支付,1支付,2已接单，3已完成，4已取消
+        addressId: this.getSelectAddress.id,
+        orderRecord: arr
       }
       console.log(params)
-      this.ADD_ORDER(params)
-      this.$router.push({ name: 'Order' })
+      // const params = {
+      //   shop: this.getOrder.shop,
+      //   user: {
+      //     name: this.getSelectAddress.name,
+      //     id: this.getSelectAddress.id,
+      //     tel: this.getSelectAddress.tel,
+      //     address: this.getSelectAddress.address
+      //   },
+      //   foods: this.getOrder.foods,
+      //   deliverTime: this.getOrder.deliverTime,
+      //   total: this.total,
+      //   payType: '在线支付',
+      //   deliverType: '蜂鸟专送',
+      //   orderTime: moment().format('YYYY-MM-DD hh:mm')
+      // }
+      // console.log(params)
+      let res = await payOrder(params)
+      if (res.errorCode === 0) {
+        this.$toast({
+          type: 'success',
+          message: '下单成功'
+        })
+        this.ADD_ORDER(params)
+        this.$router.push({ name: 'Order' })
+      }
     }
+  },
+  created() {
+    this.queryAddressLists()
   }
 }
 </script>

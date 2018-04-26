@@ -11,7 +11,7 @@
         <p class="header-delivery">
           <span class="delivery-item">商家配送</span>
           <span class="delivery-item">{{shop.deliverTime}}分钟送达</span>
-          <span class="delivery-item">配送费￥{{shop.deliverFee}}</span>
+          <span class="delivery-item">配送费￥{{shop.deliveryFee}}</span>
         </p>
         <div class="header-notice">
           <span>公告：</span>
@@ -32,13 +32,20 @@
   </div>
 </template>
 <script>
+import { session } from '@/utils/storage'
+
 export default {
   name: 'shopHeader',
-  props: {
-    shop: {
-      type: Object,
-      default: () => {}
+  data() {
+    return {
+      shop: {}
     }
+  },
+  props: {
+    // shop: {
+    //   type: Object,
+    //   default: () => {}
+    // }
   },
   computed: {
     supportType() {
@@ -59,6 +66,19 @@ export default {
       })
     },
     toggleModal() {}
+  },
+  created() {
+    let { id, name, imgPath, deliveryFee, orderLeadTime } = session.get(
+      'currentShop'
+    )
+    this.shop = Object.assign({}, this.shop, {
+      id,
+      name,
+      img: imgPath,
+      text: '精选上等食材',
+      deliveryFee,
+      deliverTime: orderLeadTime
+    })
   }
 }
 </script>

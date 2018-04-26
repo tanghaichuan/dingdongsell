@@ -39,18 +39,21 @@ export default {
     async queryGoods() {
       try {
         const params = {
-          id: this.$route.params.id
+          businessId: this.$route.params.id
         }
         const shop = await getGoodsList(params)
-        this.goods = shop.goods
-        this.shop = Object.assign({}, this.shop, {
-          name: shop.name,
-          img: shop.img,
-          text: shop.text,
-          deliverFee: shop.deliverFee,
-          deliverTime: shop.deliverTime
-        })
-        this.SET_SHOP(this.shop)
+        if (shop.errorCode === 0) {
+          this.goods = shop.data
+          // console.log(shop)
+          // this.shop = Object.assign({}, this.shop, {
+          //   name: shop.name,
+          //   img: shop.img,
+          //   text: shop.text,
+          //   deliverFee: shop.deliverFee,
+          //   deliverTime: shop.deliverTime
+          // })
+          // this.SET_SHOP(this.shop)
+        }
       } catch (error) {
         this.$toast({
           type: 'fail',

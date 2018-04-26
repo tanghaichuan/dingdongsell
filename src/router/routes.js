@@ -1,5 +1,6 @@
 import App from '../App'
 import Login from '@/page/login'
+import Forget from '@/page/login/forget'
 import NotFound from '@/components/NotFound'
 import Home from '@/page/home'
 import Order from '@/page/order'
@@ -23,6 +24,12 @@ export default[
         path: 'login',
         name: 'login',
         component: Login
+      },
+      // 重置密码
+      {
+        path: 'forget',
+        name: 'forget',
+        component: Forget
       },
       // 外卖首页
       {

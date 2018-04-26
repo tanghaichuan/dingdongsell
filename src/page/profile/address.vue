@@ -15,6 +15,7 @@
 import { mapState } from 'vuex'
 import headerBar from '@/components/header'
 import { session } from '@/utils/storage'
+import { queryAddress } from '@/api'
 
 export default {
   name: 'profileAddress',
@@ -23,11 +24,12 @@ export default {
   },
   data() {
     return {
+      addressLists: [],
       chosenAddressId: '1'
     }
   },
   computed: {
-    ...mapState(['addressLists'])
+    // ...mapState(['addressLists'])
   },
   methods: {
     handleAdd() {
@@ -38,7 +40,24 @@ export default {
     },
     handleSelect(item) {
       session.set('address', item)
+    },
+    async queryAddressLists() {
+      let res = await queryAddress({ userId: session.get('user').id })
+      if (res.errorCode === 0) {
+        res.data.forEach(item => {
+          const { addressDetail, addressId, addressLabel, addressName } = item
+          this.addressLists.push({
+            id: addressId,
+            name: addressName,
+            tel: addressLabel,
+            address: addressDetail
+          })
+        })
+      }
     }
+  },
+  created() {
+    this.queryAddressLists()
   }
 }
 </script>

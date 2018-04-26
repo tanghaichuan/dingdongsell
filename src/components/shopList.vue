@@ -3,9 +3,10 @@
     <ul v-load-more="loaderMore" class="shoplist-wrap" v-if="shopLists.length" type='1'>
       <router-link 
         :to="{name:'shop',params:{id:item.id}}" 
-        v-for="item in shopLists" 
+        v-for="(item, index) in shopLists" 
         tag="li" 
         :key="item.id"
+        @click.native="saveShopInfo(index)"
         class="shop-li">
         <section>
 					<img :src="item.imgPath" class="shop-img">
@@ -33,11 +34,11 @@
 						</section>
           </h5>
           <h5 class="fee-distance">
-						<p class="fee">
+						<!-- <p class="fee">
 							¥{{item.minimumOrderAmount}}起送
 							<span class="segmentation">/</span>
               配送费约{{item.deliveryFee}}元
-						</p>
+						</p> -->
 						<p class="distance-time">
 							<span v-if="Number(item.distance)">{{item.distance > 1000? (item.distance/1000).toFixed(2) + 'km': item.distance + 'm'}}
 								<span class="segmentation">/</span>
@@ -71,6 +72,7 @@
 import ratingStar from './ratingStar'
 import loadMore from '@/mixins/loadMore'
 import { animate } from '@/utils/dom'
+import { session } from '@/utils/storage'
 
 const MAX_OFFSET = 5 // 最大懒加载量
 
@@ -83,147 +85,7 @@ export default {
   data() {
     return {
       offset: 0, // 批次加载店铺列表，每次加载20个 limit = 20
-      shopLists: [
-        // 店铺列表
-        {
-          id: 1,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        },
-        {
-          id: 2,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        },
-        {
-          id: 3,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        },
-        {
-          id: 4,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        },
-        {
-          id: 5,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        },
-        {
-          id: 6,
-          name: '效果演示',
-          distance: '2287.8公里',
-          imgPath:
-            'https://fuss10.elemecdn.com/5/4b/8ec8657cc284d74ffea5a6957aa9djpeg.jpeg?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/',
-          isPremium: true, // 品牌
-          supports: [
-            {
-              description: '新用户下单立减17元',
-              iconName: '减',
-              name: '新用户减免'
-            }
-          ], // 其他支持服务
-          rating: 5, // 评分
-          recentOrderNum: 100, // 月售
-          deliveryMode: {
-            text: '峰鸟专送' // 支持特别派送
-          },
-          minimumOrderAmount: 120, // 最少配送价
-          deliveryFee: 5, // 配送费
-          orderLeadTime: '10小时' // 配送时间
-        }
-      ],
+      shopLists: [],
       preventRepeatReuqest: false, //到达底部加载数据，防止重复加载
       showBackStatus: false, //显示返回顶部按钮
       showLoading: true, //显示加载动画
@@ -252,6 +114,12 @@ export default {
       }
     }
   },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
   methods: {
     showBack() {
       if (document.body.scrollTop > 500) {
@@ -265,8 +133,18 @@ export default {
     },
     getShopList() {
       let arr = []
-      for (let i = 1; i <= MAX_OFFSET; i++) {
-        arr.push(this.mockShop)
+      if (this.offset > 0) {
+        if (this.list.length - this.offset > MAX_OFFSET) {
+          for (let i = this.offset; i < this.offset + MAX_OFFSET; i++) {
+            arr.push(this.list[i])
+          }
+          this.offset = this.offset + MAX_OFFSET
+        } else {
+          for (let i = this.offset; i < this.list.length; i++) {
+            arr.push(this.list[i])
+          }
+          this.offset = this.list.length
+        }
       }
       return arr
     },
@@ -274,9 +152,11 @@ export default {
       if (this.touchend) {
         return
       }
-      this.offset += MAX_OFFSET
       let res = this.getShopList()
       this.shopLists = [...this.shopLists, ...res]
+    },
+    saveShopInfo(index) {
+      session.set('currentShop', this.list[index])
     }
   },
   mounted() {
@@ -284,6 +164,21 @@ export default {
   },
   destroyed() {
     document.removeEventListener('scroll', this.showBack)
+  },
+  watch: {
+    list(val) {
+      if (val) {
+        const len = val.length
+        if (len > MAX_OFFSET) {
+          for (let i = 0; i < MAX_OFFSET; i++) {
+            this.shopLists.push(this.list[i])
+            this.offset = MAX_OFFSET
+          }
+        } else {
+          this.shopLists = this.list
+        }
+      }
+    }
   }
 }
 </script>

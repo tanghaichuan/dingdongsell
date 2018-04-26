@@ -6,7 +6,7 @@ import {Dialog} from 'vant'
 
 Vue.use(Router)
 
-const router = new Router({mode: 'history', routes})
+const router = new Router({routes})
 
 function initDialog() {
   let $modal = document.querySelector('.van-modal')

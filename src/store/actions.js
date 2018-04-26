@@ -1,6 +1,7 @@
 import * as constant from './constant'
 import {Toast} from 'vant'
 import {session} from '@/utils/storage'
+import {editAddress} from '../api'
 
 // 获取用户身份
 export function fetchUser({commit}) {
@@ -18,6 +19,7 @@ export async function addAddress({
   try {
     // 新增地址入库
     const {
+      id,
       name,
       tel,
       province,
@@ -26,8 +28,35 @@ export async function addAddress({
       address_detail
     } = content
     let address = `${province}${city}${county}${address_detail}`
-    commit(constant.ADD_ADDRESS, {name, tel, address})
-    Toast.success('添加成功')
+    let param = {}
+    if (id) {
+      param = {
+        addressId: id,
+        userId: session
+          .get('user')
+          .id,
+        addressName: name,
+        addressLabel: tel,
+        addressDetail: address
+      }
+    } else {
+      param = {
+        userId: session
+          .get('user')
+          .id,
+        addressName: name,
+        addressLabel: tel,
+        addressDetail: address
+      }
+    }
+
+    let res = await editAddress(param)
+    if (res.errorCode === 0) {
+      commit(constant.ADD_ADDRESS, {name, tel, address})
+      Toast.success('添加成功')
+    } else {
+      Toast.fail('添加失败')
+    }
   } catch (error) {
     Toast.fail(error)
   }

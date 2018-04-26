@@ -11,7 +11,7 @@
             @click="selectMenu(index,$event)">
             <span class="text">
               <span v-show="item.type > 0" :class="['icon','special']"></span>
-              {{item.name}}
+              {{getGoodsTypeLabel(item.goodsTypeLabel)}}
             </span>
           </li>
         </ul>
@@ -19,20 +19,20 @@
       <div class="menu-content" ref="content">
         <ul>
           <li v-for="(item,index) in goods" class="content-list-hook" :key="index">
-            <h1 class="title">{{item.name}}</h1>
+            <h1 class="title">{{getGoodsTypeLabel(item.goodsTypeLabel)}}</h1>
             <ul>
-              <li v-for="(food,inx) in item.foods" class="food-item" :key="inx">
+              <li v-for="(food,inx) in item.goodsInfoList" class="food-item" :key="inx">
                 <div class="thumb">
                   <img :src="food.icon" alt="">
                 </div>
                 <div class="content">
-                  <h2 class="name">{{food.name}}</h2>
-                  <p class="desc">{{food.description}}</p>
+                  <h2 class="name">{{food.goodsName}}</h2>
+                  <p class="desc">{{food.goodsDetail}}</p>
                   <div class="extra">
-                    <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+                    <!-- <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span> -->
                   </div>
                   <div class="price">
-                    <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                    <span class="now">￥{{food.goodsPrice}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cart-wrapper">
                     <cart-control :food="food"></cart-control>
@@ -62,7 +62,25 @@ export default {
   data() {
     return {
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      categoryList: [
+        {
+          value: 0,
+          label: '凉菜'
+        },
+        {
+          value: 1,
+          label: '热菜'
+        },
+        {
+          value: 2,
+          label: '单人套餐'
+        },
+        {
+          value: 3,
+          label: '精选套餐'
+        }
+      ]
     }
   },
   props: {
@@ -85,7 +103,7 @@ export default {
     selectFoods() {
       let foods = []
       this.goods.forEach(good => {
-        good.foods.forEach(food => {
+        good.goodsInfoList.forEach(food => {
           if (food.count) {
             foods.push(food)
           }
@@ -127,11 +145,21 @@ export default {
       )
       let el = contentList[index]
       this.contentScroll.scrollToElement(el, 100)
+    },
+    getGoodsTypeLabel(index) {
+      let label = ''
+      this.categoryList.forEach(item => {
+        if (item.value === index) {
+          label = item.label
+        }
+      })
+      return label
     }
   },
   watch: {
     goods(val) {
       if (val) {
+        console.log(val)
         this.$nextTick(() => {
           this._initScroll()
           this._calculateHeight()

@@ -5,20 +5,12 @@
       <van-field type="text" :error="hadUser" v-model="user.username" placeholder="账号" />
     </van-cell-group>
     <van-cell-group class="login-cell">
-      <van-field type="password" :error="hadPwd" v-model="user.password" placeholder="密码" />
+      <van-field type="password" :error="hadPwd" v-model="user.password" placeholder="旧密码" />
     </van-cell-group>
-    <van-cell-group class="login-cell login-iden-code">
-      <van-field type="text" :error="judgeCode" placeholder="验证码" maxlength="4" v-model="idenCode"/>
-      <div class="img_change_img">
-        <img src="../../../static/img/idenCode.png">
-        <div class="change-img" @click="getCaptchaCode">
-            <p>看不清</p>
-            <p>换一张</p>
-        </div>
-      </div>
-    </van-cell-group> 
-    <van-button @click.native="login" class="login-btn" size="large">登录</van-button>
-    <router-link to="/forget" class="login-forget">重置密码？</router-link>
+    <van-cell-group class="login-cell">
+      <van-field type="password" :error="rePwd" v-model="user.rePassword" placeholder="新密码" />
+    </van-cell-group>
+    <van-button @click.native="login" class="login-btn" size="large">确定</van-button>
   </div>
 </template>
 <script>
@@ -27,7 +19,7 @@ import { session } from '@/utils/storage'
 import { login } from '@/api'
 
 export default {
-  name: 'login',
+  name: 'forget',
   components: {
     headerBar
   },
@@ -35,12 +27,12 @@ export default {
     return {
       hadUser: false,
       hadPwd: false,
-      judgeCode: false,
+      rePwd: false,
       user: {
         username: '',
-        password: ''
-      },
-      idenCode: ''
+        password: '',
+        rePassword: ''
+      }
     }
   },
   methods: {
@@ -61,11 +53,11 @@ export default {
         })
         return false
       }
-      if (this.idenCode.toLowerCase().trim() !== 'v9am') {
-        this.judgeCode = true
+      if (!this.user.rePassword) {
+        this.rePwd = true
         this.$toast({
           type: 'fail',
-          message: '验证码错误'
+          message: '请输入新密码'
         })
         return false
       }
@@ -74,13 +66,13 @@ export default {
     async login() {
       if (this.validForm()) {
         const param = {
+          id: session.get('user').id,
           userName: this.user.username,
           userPassword: this.user.password
         }
         let res = await login(param)
         if (res.errorCode === 0) {
-          session.set('user', res.data[0])
-          this.$router.go(-1)
+          this.$router.push('/')
         } else {
           this.$toast({
             type: 'fail',
@@ -102,9 +94,9 @@ export default {
         this.hadPwd = false
       }
     },
-    idenCode(val) {
+    'user.rePassword'(val) {
       if (val) {
-        this.judgeCode = false
+        this.rePwd = false
       }
     }
   }

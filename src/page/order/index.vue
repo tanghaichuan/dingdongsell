@@ -10,7 +10,7 @@
         <header>
           <img class="order-avatar" :src="item.shop.img" alt="">
           <div class="order-shop-desc">
-            <span class="order-name">{{item.shop.name}}</span>
+            <span class="order-name">{{item.name}}</span>
             <van-icon name="arrow" />
             <span class="order-status">订单完成</span>
           </div>
@@ -19,7 +19,7 @@
           <ul class="order-food-content">
             <li class="food-content-cell"
               v-for="(food,inx) in item.foods" :key="inx">
-              <span class="food-content-name">{{food.name}}</span>
+              <span class="food-content-name">{{food.goodsName}}</span>
               <span class="food-content-num">x {{food.count}}</span>
             </li>
             <div class="order-desc">
@@ -37,6 +37,8 @@
 import { mapState } from 'vuex'
 import footerBar from '@/components/footer'
 import headerBar from '@/components/header'
+import { queryOrderLists } from '@/api'
+import { session } from '@/utils/storage'
 
 export default {
   name: 'order',
@@ -46,6 +48,15 @@ export default {
   },
   computed: {
     ...mapState(['orders'])
+  },
+  async created() {
+    if (session.get('user')) {
+      const params = {
+        userId: session.get('user').id
+      }
+      let res = await queryOrderLists(params)
+      console.log(res)
+    }
   }
 }
 </script>

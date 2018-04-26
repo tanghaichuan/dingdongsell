@@ -35,9 +35,9 @@
         <div class="list-content" ref="cartList">
           <ul>
             <li class="food" v-for="(food, index) in selectFoods" :key="index">
-              <span class="name">{{food.name}}</span>
+              <span class="name">{{food.goodsName}}</span>
               <div class="price">
-                <span>￥{{food.price*food.count}}</span>
+                <span>￥{{food.goodsPrice*food.count}}</span>
               </div>
               <div class="cartcontrol-wrapper">
                 <cart-control :food="food"></cart-control>
@@ -53,7 +53,7 @@
 import { mapState } from 'vuex'
 import BSroll from 'better-scroll'
 import cartControl from './cartControl'
-import { local } from '@/utils/storage'
+import { local, session } from '@/utils/storage'
 
 export default {
   name: 'shopCart',
@@ -96,7 +96,7 @@ export default {
     totalPrice() {
       let total = 0
       this.selectFoods.forEach(food => {
-        total += food.price * food.count
+        total += food.goodsPrice * food.count
       })
       return total
     },
@@ -163,14 +163,17 @@ export default {
       if (this.totalPrice < this.minPrice) {
         return
       }
+      const currentShop = session.get('currentShop')
+      const { name, deliveryFee, orderLeadTime } = currentShop
       const order = {
-        deliverFee: this.shop.deliverFee,
-        deliverTime: this.shop.deliverTime,
-        name: this.shop.name,
+        deliverFee: deliveryFee,
+        deliverTime: orderLeadTime,
+        name,
         foods: this.selectFoods,
-        shop: this.shop,
+        shop: currentShop,
         sum: this.totalPrice
       }
+      console.log(this.selectFoods)
       local.set('order', order)
       this.$router.push({ name: 'ConfirmOrder' })
     }

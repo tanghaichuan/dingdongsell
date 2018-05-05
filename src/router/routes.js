@@ -14,6 +14,7 @@ import Shop from '@/page/shop'
 import ShopDetails from '@/page/shop/shopDetails'
 import Search from '@/page/search'
 import Food from '@/page/food'
+import PayOrder from '@/page/order/payOrder'
 
 export default[
   {
@@ -54,6 +55,13 @@ export default[
         component: ConfirmOrder,
         meta: {
           validLogin: true
+        }
+      }, {
+        path: 'payorder/:id',
+        name: 'PayOrder',
+        component: PayOrder,
+        meta: {
+          validLogin: false
         }
       },
       // 个人设置页

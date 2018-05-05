@@ -138,36 +138,13 @@ export default {
       const params = {
         userId: session.get('user').id,
         businessId: session.get('currentShop').id,
-        orderStatus: 1, // 0支付,1支付,2已接单，3已完成，4已取消
+        orderStatus: 1, // 0未支付,1支付,2已接单，3已完成，4已取消
         addressId: this.getSelectAddress.id,
         orderRecord: arr
       }
-      console.log(params)
-      // const params = {
-      //   shop: this.getOrder.shop,
-      //   user: {
-      //     name: this.getSelectAddress.name,
-      //     id: this.getSelectAddress.id,
-      //     tel: this.getSelectAddress.tel,
-      //     address: this.getSelectAddress.address
-      //   },
-      //   foods: this.getOrder.foods,
-      //   deliverTime: this.getOrder.deliverTime,
-      //   total: this.total,
-      //   payType: '在线支付',
-      //   deliverType: '蜂鸟专送',
-      //   orderTime: moment().format('YYYY-MM-DD hh:mm')
-      // }
-      // console.log(params)
-      let res = await payOrder(params)
-      if (res.errorCode === 0) {
-        this.$toast({
-          type: 'success',
-          message: '下单成功'
-        })
-        this.ADD_ORDER(params)
-        this.$router.push({ name: 'Order' })
-      }
+      session.set('order', params)
+      this.ADD_ORDER(params)
+      this.$router.push({ name: 'PayOrder' })
     }
   },
   created() {

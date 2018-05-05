@@ -53,3 +53,13 @@ export const payOrder = (data) => server('/orderInfo/editOrderInfo.do', data, 'p
  * 查询订单列表
  */
 export const queryOrderLists = (data) => server('/orderInfo/queryOrderInfoList.do', data, 'post')
+
+/**
+ * 查询用户列表
+ */
+export const queryAllUsers = () => server('/userInfo/queryUserInfoList.do')
+
+/**
+ * 商家模糊搜索
+ */
+export const queryShopByName = (data) => server('/businessInfo/searchBusinessInfoByContent.do', data, 'post')

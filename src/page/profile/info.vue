@@ -3,7 +3,7 @@
     <headerBar title="账户信息"></headerBar>
     <van-cell-group>
       <van-cell class="info" title="头像" is-link />
-      <van-cell class="info" title="用户名" is-link />
+      <van-cell class="info" title="用户名" is-link @click.native="$router.push({path:'/forget'})"/>
     </van-cell-group>
     <van-button @click.native="logout" class="login-btn" size="large">退出登录</van-button>
   </div>

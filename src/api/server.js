@@ -5,6 +5,10 @@ import {responseInterceptor, handleResponseError} from './interceptor'
 // import domains from './domains' axios拦截器
 // axios.interceptors.request.use(responseInterceptor, handleResponseError)
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = baseURL
+// axios.defaults.headers = {   'Accept':
+// 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*
+// /*;' +       'q=0.8' }
 
 async function server(type, url, data, params) {
   type = type.toUpperCase()

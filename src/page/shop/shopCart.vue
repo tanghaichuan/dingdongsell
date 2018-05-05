@@ -173,7 +173,6 @@ export default {
         shop: currentShop,
         sum: this.totalPrice
       }
-      console.log(this.selectFoods)
       local.set('order', order)
       this.$router.push({ name: 'ConfirmOrder' })
     }

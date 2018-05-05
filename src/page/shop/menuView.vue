@@ -159,7 +159,6 @@ export default {
   watch: {
     goods(val) {
       if (val) {
-        console.log(val)
         this.$nextTick(() => {
           this._initScroll()
           this._calculateHeight()

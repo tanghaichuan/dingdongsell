@@ -12,7 +12,9 @@ let routerMode = 'history'
 let imgBaseUrl = ''
 
 if (process.env.NODE_ENV == 'development') {
+  baseURL = ''
 } else if (process.env.NODE_ENV == 'production') {
+  baseURL = ''
 }
 
-export { baseURL, routerMode, imgBaseUrl }
+export {baseURL, routerMode, imgBaseUrl}

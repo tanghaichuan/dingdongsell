@@ -80,7 +80,7 @@ export default {
         let res = await login(param)
         if (res.errorCode === 0) {
           session.set('user', res.data[0])
-          this.$router.go(-1)
+          this.$router.push({ path: '/profile' })
         } else {
           this.$toast({
             type: 'fail',

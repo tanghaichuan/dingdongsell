@@ -12,35 +12,35 @@ module.exports = {
     // 地址映射表
     proxyTable: {
       '/userInfo': {
-        target: 'http://192.168.253.7:8082/userInfo/',
+        target: 'http://114.67.133.241:8080/web/userInfo/',
         changeOrigin: true,
         pathRewrite: {
           '^/userInfo': ''
         }
       },
       '/businessInfo': {
-        target: 'http://192.168.253.7:8082/businessInfo/',
+        target: 'http://114.67.133.241:8080/web/businessInfo/',
         changeOrigin: true,
         pathRewrite: {
           '^/businessInfo': ''
         }
       },
       '/goodsInfo': {
-        target: 'http://192.168.253.7:8082/goodsInfo/',
+        target: 'http://114.67.133.241:8080/web/goodsInfo/',
         changeOrigin: true,
         pathRewrite: {
           '^/goodsInfo': ''
         }
       },
       '/addressInfo': {
-        target: 'http://192.168.253.7:8082/addressInfo/',
+        target: 'http://114.67.133.241:8080/web/addressInfo/',
         changeOrigin: true,
         pathRewrite: {
           '^/addressInfo': ''
         }
       },
       '/orderInfo': {
-        target: 'http://192.168.253.7:8082/orderInfo/',
+        target: 'http://114.67.133.241:8080/web/orderInfo/',
         changeOrigin: true,
         pathRewrite: {
           '^/orderInfo': ''

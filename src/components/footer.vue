@@ -3,7 +3,7 @@
     <van-tabbar v-model="active">
       <van-tabbar-item icon="shop">外卖</van-tabbar-item>
       <van-tabbar-item icon="records" dot>订单</van-tabbar-item>
-      <van-tabbar-item icon="contact" info="5">个人</van-tabbar-item>
+      <van-tabbar-item icon="contact" >个人</van-tabbar-item>
     </van-tabbar>
   </footer>  
 </template>
